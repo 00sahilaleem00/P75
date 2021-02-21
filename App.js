@@ -1,11 +1,11 @@
-import React from 'react';
-import { Image } from 'react-native';
-import { createAppContainer } from 'react-navigation';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import React from "react";
+import { Image } from "react-native";
+import { createAppContainer } from "react-navigation";
+import { createBottomTabNavigator } from "react-navigation-tabs";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import ReadStoryScreen from './screens/ReadStoryScreen';
-import WriteStoryScreen from './screens/WriteStoryScreen';
+import ReadStoryScreen from "./screens/ReadStoryScreen";
+import WriteStoryScreen from "./screens/WriteStoryScreen";
 
 export default class App extends React.Component {
   render() {
@@ -13,7 +13,7 @@ export default class App extends React.Component {
       <SafeAreaProvider>
         <AppContainer />
       </SafeAreaProvider>
-    )
+    );
   }
 }
 
@@ -26,17 +26,17 @@ const TabNavigator = createBottomTabNavigator(
     defaultNavigationOptions: ({ navigation }) => ({
       tabBarIcon: () => {
         const routeName = navigation.state.routeName;
-        if (routeName === 'Read') {
+        if (routeName === "Read") {
           return (
             <Image
-              source={require('./assets/read.png')}
+              source={require("./assets/read.png")}
               style={{ width: 40, height: 40 }}
             />
           );
-        } else if (routeName === 'Write') {
+        } else if (routeName === "Write") {
           return (
             <Image
-              source={require('./assets/write.png')}
+              source={require("./assets/write.png")}
               style={{ width: 40, height: 40 }}
             />
           );
