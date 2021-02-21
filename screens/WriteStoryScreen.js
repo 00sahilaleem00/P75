@@ -5,7 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
-  ToastAndroid,
+  Alert,
   Text,
 } from "react-native";
 import { Header } from "react-native-elements";
@@ -17,9 +17,9 @@ export default class WriteStoryScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      title: "Enter Title Here",
       author: "Enter Author Here",
       story: "Enter Story Here",
+      title: "Enter Title Here",
     };
   }
   submitStory = async () => {
@@ -29,11 +29,11 @@ export default class WriteStoryScreen extends React.Component {
       title: this.state.title,
     });
     var message = "Submitted!";
-    ToastAndroid.show(message, ToastAndroid.SHORT);
+    Alert.alert(message);
     this.setState({
-      title: "",
       author: "",
       story: "",
+      title: "",
     });
   };
   render() {
