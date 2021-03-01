@@ -33,27 +33,70 @@ export default class ReadStoryScreen extends React.Component {
     });
   };
   updateSearch = (search) => {
+    console.log("New Search|||||||||||||||||||");
     this.setState({ search: search });
+    var ind = null;
     for (var i in this.state.allStories) {
       if (
         !this.state.allStories[i].author.includes(search) &&
         !this.state.allStories[i].title.includes(search)
       ) {
-        // var ind = this.state.dataSource.indexOf(this.state.allStories[i]);
         for (var j in this.state.dataSource) {
           if (
             this.state.dataSource[j].author ===
               this.state.allStories[i].author ||
             this.state.dataSource[j].title === this.state.allStories[i].title
           ) {
-            var ind = j;
+            ind = j;
+          }
+        }
+        if (ind != null) {
+          var data = this.state.dataSource;
+          data.splice(ind, 1);
+          this.setState({
+            dataSource: data,
+          });
+        }
+        for (var q in data) {
+          console.log(data[q].title + " BY " + data[q].author);
+        }
+        console.log("YEEYEE------------");
+      } else {
+        var present = false;
+        for (var j in this.state.dataSource) {
+          if (
+            this.state.dataSource[j].author ===
+              this.state.allStories[i].author ||
+            this.state.dataSource[j].title === this.state.allStories[i].title
+          ) {
+            present = true;
           }
         }
         var data = this.state.dataSource;
-        data.splice(ind, 1);
-        this.setState({
-          dataSource: data,
-        });
+        if (!present) {
+          for (var q in this.state.allStories) {
+            console.log(
+              this.state.allStories[q].title +
+                " BY " +
+                this.state.allStories[q].author
+            );
+          }
+          for (var q in data) {
+            console.log(data[q].title + " BY " + data[q].author);
+          }
+          data.push(this.state.allStories[i]);
+          for (var q in data) {
+            console.log(data[q].title + " BY " + data[q].author);
+          }
+          this.setState({
+            dataSource: data,
+          });
+          console.log("Presence update done-------------------");
+        }
+        for (var q in data) {
+          console.log(data[q].title + " BY " + data[q].author);
+        }
+        console.log("Exiting else---------------------");
       }
     }
   };
