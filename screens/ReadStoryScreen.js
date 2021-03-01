@@ -8,6 +8,7 @@ import {
   Alert,
   Text,
   ScrollView,
+  FlatList,
 } from "react-native";
 import { Header, SearchBar } from "react-native-elements";
 
@@ -33,7 +34,6 @@ export default class ReadStoryScreen extends React.Component {
     });
   };
   updateSearch = (search) => {
-    console.log("New Search|||||||||||||||||||");
     this.setState({ search: search });
     var ind = null;
     for (var i in this.state.allStories) {
@@ -57,10 +57,6 @@ export default class ReadStoryScreen extends React.Component {
             dataSource: data,
           });
         }
-        for (var q in data) {
-          console.log(data[q].title + " BY " + data[q].author);
-        }
-        console.log("YEEYEE------------");
       } else {
         var present = false;
         for (var j in this.state.dataSource) {
@@ -74,29 +70,12 @@ export default class ReadStoryScreen extends React.Component {
         }
         var data = this.state.dataSource;
         if (!present) {
-          for (var q in this.state.allStories) {
-            console.log(
-              this.state.allStories[q].title +
-                " BY " +
-                this.state.allStories[q].author
-            );
-          }
-          for (var q in data) {
-            console.log(data[q].title + " BY " + data[q].author);
-          }
           data.push(this.state.allStories[i]);
-          for (var q in data) {
-            console.log(data[q].title + " BY " + data[q].author);
-          }
+
           this.setState({
             dataSource: data,
           });
-          console.log("Presence update done-------------------");
         }
-        for (var q in data) {
-          console.log(data[q].title + " BY " + data[q].author);
-        }
-        console.log("Exiting else---------------------");
       }
     }
   };
@@ -120,14 +99,16 @@ export default class ReadStoryScreen extends React.Component {
           onChangeText={this.updateSearch}
           value={this.state.search}
         />
-        {this.state.dataSource.map((story, index) => {
-          return (
-            <View key={index} style={{ borderBottomWidth: 2 }}>
-              <Text>{"Author: " + story.author}</Text>
-              <Text>{"Title: " + story.title}</Text>
+        <FlatList
+          data={this.state.dataSource}
+          renderItem={({ item }) => (
+            <View style={{ borderBottomWidth: 2 }}>
+              <Text>{"Author: " + item.author}</Text>
+              <Text>{"Title: " + item.title}</Text>
             </View>
-          );
-        })}
+          )}
+          keyExtractor={(item, index) => index.toString()}
+        />
       </View>
     );
   }
